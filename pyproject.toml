@@ -3,9 +3,8 @@ name = "prcoords-typed"
 version = "0.1.0"
 description = "Add your description here"
 readme = "README.md"
-authors = [
-    { name = "李瀚明 Li Hanming", email = "jason@hanming.li" }
-]
+license = "CC0-1.0"
+authors = [{ name = "李瀚明 Li Hanming", email = "jason@hanming.li" }]
 requires-python = ">=3.14"
 dependencies = []
 
