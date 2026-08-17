@@ -1,0 +1,17 @@
+[project]
+name = "prcoords-typed"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+authors = [
+    { name = "李瀚明 Li Hanming", email = "jason@hanming.li" }
+]
+requires-python = ">=3.14"
+dependencies = []
+
+[project.scripts]
+prcoords-typed = "prcoords_typed:main"
+
+[build-system]
+requires = ["uv_build>=0.12.5,<0.13.0"]
+build-backend = "uv_build"
