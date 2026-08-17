@@ -1,8 +1,9 @@
 """在 WGS-84、GCJ-02 和 BD-09 之间进行转换。"""
 
-import dataclasses
 import math
 import typing
+
+import pydantic
 
 type CoordinateSystem = typing.Literal["wgs84", "gcj02", "bd09"]
 
@@ -18,8 +19,7 @@ def _sins(variable: float, /, *coefficients: tuple[float, float]) -> float:
     )
 
 
-@dataclasses.dataclass(order=True, frozen=True)
-class Position:
+class Position(pydantic.BaseModel):
     """经纬度坐标"""
 
     lat: float

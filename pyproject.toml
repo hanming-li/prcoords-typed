@@ -1,12 +1,12 @@
 [project]
 name = "prcoords-typed"
-version = "1.0.4"
+version = "2.0.0"
 description = "在 WGS-84、GCJ-02 和 BD-09 之间转换"
 readme = "README.md"
 license = "CC0-1.0"
 authors = [{ name = "李瀚明 Li Hanming", email = "jason@hanming.li" }]
 requires-python = ">=3.14"
-dependencies = []
+dependencies = ["pydantic>=2.13.4"]
 
 [dependency-groups]
 dev = ["pytest>=8.0", "pyright>=1.1.399", "ruff>=0.11.0"]
