@@ -49,7 +49,7 @@ wheels = [
 
 [[package]]
 name = "prcoords-typed"
-version = "1.0.2"
+version = "1.0.3"
 source = { editable = "." }
 
 [package.dev-dependencies]
