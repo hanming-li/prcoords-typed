@@ -1,6 +1,6 @@
 [project]
 name = "prcoords-typed"
-version = "1.0.0"
+version = "1.0.1"
 description = "Add your description here"
 readme = "README.md"
 license = "CC0-1.0"

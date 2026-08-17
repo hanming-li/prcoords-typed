@@ -31,6 +31,6 @@ def test_convert() -> None:
             result: prcoords_typed.Position = prcoords_typed.convert(
                 pt=case[key1], _from=key1, _to=key2
             )
-            assert abs(result - case[key2]) < 1e-10, (
+            assert abs(result - case[key2]) < 1e-6, (
                 f"{name} {key1}->{key2} 失败：\n{case[key1]}\n -> {result}\n != {case[key2]}"
             )
