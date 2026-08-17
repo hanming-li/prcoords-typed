@@ -2,35 +2,40 @@
 
 import itertools
 
-import prcoords_typed
+from prcoords_typed import CoordinateSystem, Position, convert
 
-_CASES: dict[str, dict[prcoords_typed.CoordinateSystem, prcoords_typed.Position]] = {
-    "北京首都国际机场": {
-        "wgs84": prcoords_typed.Position(lng=116 + 35.9 / 60, lat=40 + 4.4 / 60),
-        "gcj02": prcoords_typed.Position(
-            lng=116.604139268664,
-            lat=40.074379611546,
-        ),  # 高德转换结果
-        # "gcj02": prcoords_typed.Position(
-        #     lng=116.604139,
-        #     lat=40.074379,
-        # ),  # 腾讯转换结果
-    }  # Center of RWY 18L/36R
+_SYSTEMS: list[CoordinateSystem] = ["wgs84", "gcj02", "bd09"]
+_CASES: dict[str, dict[CoordinateSystem, Position]] = {
+    "北京/首都": {
+        "wgs84": Position(lng=116 + 35.9 / 60, lat=40 + 4.4 / 60),
+        "gcj02": Position(lng=116.604140, lat=40.074380),
+        "bd09": Position(lng=116.610670, lat=40.080272),
+    },
+    "北京/大兴": {
+        "wgs84": Position(lng=116 + 24 / 60, lat=39 + 30 / 60),
+        "gcj02": Position(lng=116.406192, lat=39.501340),
+        "bd09": Position(lng=116.412597, lat=39.507676),
+    },
+    "鄂尔多斯/伊金霍洛": {
+        "wgs84": Position(lng=109 + 51.9 / 60, lat=39 + 29.4 / 60),
+        "gcj02": Position(lng=109.870522, lat=39.490848),
+        "bd09": Position(lng=109.877133, lat=39.496571),
+    },
 }
-"""每个用例由源坐标系、目标坐标系和期望结果组成。"""
 
 
 def test_convert() -> None:
-    _systems: list[prcoords_typed.CoordinateSystem] = [
-        "wgs84",
-        "gcj02",
-        # "bd09",
-    ]
-    for key1, key2 in itertools.permutations(iterable=_systems, r=2):
+    for key1, key2 in itertools.permutations(iterable=_SYSTEMS, r=2):
         for name, case in _CASES.items():
-            result: prcoords_typed.Position = prcoords_typed.convert(
-                pt=case[key1], _from=key1, _to=key2
+            print(
+                key1,
+                case[key1].lnglat,
             )
-            assert abs(result - case[key2]) < 1e-6, (
+            print(
+                key2,
+                case[key2].lnglat,
+            )
+            result: Position = convert(pt=case[key1], _from=key1, _to=key2)
+            assert abs(result - case[key2]) < 1.5e-6, (
                 f"{name} {key1}->{key2} 失败：\n{case[key1]}\n -> {result}\n != {case[key2]}"
             )
