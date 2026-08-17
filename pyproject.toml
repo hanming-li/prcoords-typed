@@ -8,8 +8,11 @@ authors = [{ name = "李瀚明 Li Hanming", email = "jason@hanming.li" }]
 requires-python = ">=3.14"
 dependencies = []
 
-[project.scripts]
-prcoords-typed = "prcoords_typed:main"
+[dependency-groups]
+dev = ["pytest>=8.0"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
 
 [build-system]
 requires = ["uv_build>=0.12.5,<0.13.0"]
