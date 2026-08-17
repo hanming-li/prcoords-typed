@@ -27,14 +27,6 @@ _CASES: dict[str, dict[CoordinateSystem, Position]] = {
 def test_convert() -> None:
     for key1, key2 in itertools.permutations(iterable=_SYSTEMS, r=2):
         for name, case in _CASES.items():
-            print(
-                key1,
-                case[key1].lnglat,
-            )
-            print(
-                key2,
-                case[key2].lnglat,
-            )
             result: Position = convert(pt=case[key1], _from=key1, _to=key2)
             assert abs(result - case[key2]) < 1.5e-6, (
                 f"{name} {key1}->{key2} 失败：\n{case[key1]}\n -> {result}\n != {case[key2]}"

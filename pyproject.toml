@@ -1,7 +1,7 @@
 [project]
 name = "prcoords-typed"
-version = "1.0.1"
-description = "Add your description here"
+version = "1.0.2"
+description = "在 WGS-84、GCJ-02 和 BD-09 之间转换"
 readme = "README.md"
 license = "CC0-1.0"
 authors = [{ name = "李瀚明 Li Hanming", email = "jason@hanming.li" }]
