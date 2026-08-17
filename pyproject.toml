@@ -1,6 +1,6 @@
 [project]
 name = "prcoords-typed"
-version = "1.0.3"
+version = "1.0.4"
 description = "在 WGS-84、GCJ-02 和 BD-09 之间转换"
 readme = "README.md"
 license = "CC0-1.0"
