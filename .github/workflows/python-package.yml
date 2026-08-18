@@ -18,6 +18,8 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
+      # gh workflow run 需要 actions: write 权限
+      actions: write
     strategy:
       fail-fast: false
       matrix:
@@ -62,4 +64,17 @@ jobs:
           gh release create "$version" --title "$version" --generate-notes
         else
           echo "Commit message '$message' is not a version, skipping release"
+        fi
+
+    - name: Trigger publish workflow
+      if: github.event_name == 'push'
+      env:
+        GH_TOKEN: ${{ github.token }}
+      run: |
+        message="$(git log -1 --format=%s)"
+        if [[ "$message" =~ ^v[0-9]+\.[0-9]+\.[0-9]+ ]]; then
+          echo "Triggering publish workflow"
+          gh workflow run python-publish.yml --ref master
+        else
+          echo "Not a version commit, skipping publish trigger"
         fi

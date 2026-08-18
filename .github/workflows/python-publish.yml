@@ -11,6 +11,9 @@ name: Upload Python Package
 on:
   release:
     types: [published]
+  # 注意：CI 用 GITHUB_TOKEN 执行的 gh release create 不会触发 release 事件（GitHub 限制），
+  # 因此由 CI 在创建 release 后通过 workflow_dispatch 主动触发本工作流。
+  workflow_dispatch:
 
 permissions:
   contents: read
