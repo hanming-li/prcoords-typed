@@ -5,6 +5,9 @@ import typing
 
 import pydantic
 
+_SIX_DIGITS = pydantic.AfterValidator(func=lambda x: round(number=x, ndigits=6))
+type Latitude = typing.Annotated[float, pydantic.Field(ge=-90, le=90), _SIX_DIGITS]
+type Longitude = typing.Annotated[float, pydantic.Field(ge=-180, le=180), _SIX_DIGITS]
 type CoordinateSystem = typing.Literal["wgs84", "gcj02", "bd09"]
 
 
@@ -22,9 +25,9 @@ def _sins(variable: float, /, *coefficients: tuple[float, float]) -> float:
 class Position(pydantic.BaseModel):
     """经纬度坐标"""
 
-    lat: float
+    lat: Latitude
     """纬度"""
-    lng: float
+    lng: Longitude
     """经度"""
 
     def __add__(self, other: typing.Self) -> typing.Self:
@@ -69,7 +72,9 @@ def convert(pt: Position, _from: CoordinateSystem, _to: CoordinateSystem) -> Pos
         """在纵轴上的偏移量（米）。"""
 
         GCJ_A: float = 6378245
+        """地球半径（krass.a）"""
         GCJ_EE: float = 0.006693421622965823
+        """地球离心率（krass.es）"""
         _魔法数: float = 1 - GCJ_EE * _sin(pt.lat) ** 2
         _纬长: float = GCJ_A * math.radians((1 - GCJ_EE) / _魔法数**1.5)
         """该点附近 1 纬度的长度（单位为米）"""
